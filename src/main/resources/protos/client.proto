@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.hotel.tp_reservation_grpc.stubs";
+option java_outer_classname = "ClientProto";
+
+service ClientService {
+  rpc CreateClient (ClientRequest) returns (ClientResponse);
+  rpc GetClientById (ClientIdRequest) returns (ClientResponse);
+  rpc GetAllClients (EmptyRequest) returns (ClientListResponse);
+  rpc UpdateClient (UpdateClientRequest) returns (ClientResponse);
+  rpc DeleteClient (ClientIdRequest) returns (EmptyResponse);
+}
+
+message Client {
+  int64 id = 1;
+  string nom = 2;
+  string prenom = 3;
+  string email = 4;
+  string telephone = 5;
+}
+
+message ClientRequest {
+  Client client = 1;
+}
+
+message ClientIdRequest {
+  int64 id = 1;
+}
+
+message UpdateClientRequest {
+  int64 id = 1;
+  Client client = 2;
+}
+
+message ClientResponse {
+  Client client = 1;
+}
+
+message ClientListResponse {
+  repeated Client clients = 1;
+}
+
+message EmptyRequest {}
+
+message EmptyResponse {}

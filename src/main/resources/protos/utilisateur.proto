@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.hotel.tp_reservation_grpc.stubs";
+option java_outer_classname = "UtilisateurProto";
+
+service UtilisateurService {
+  rpc CreateUtilisateur (UtilisateurRequest) returns (UtilisateurResponse);
+  rpc GetUtilisateurById (UtilisateurIdRequest) returns (UtilisateurResponse);
+  rpc GetAllUtilisateurs (EmptyRequest) returns (UtilisateurListResponse);
+  rpc UpdateUtilisateur (UpdateUtilisateurRequest) returns (UtilisateurResponse);
+  rpc DeleteUtilisateur (UtilisateurIdRequest) returns (EmptyResponse);
+}
+
+enum Role {
+    USER = 0;
+    ADMIN = 1;
+}
+
+message Utilisateur {
+  int64 id = 1;
+  string nom = 2;
+  string motDePasse = 3;
+  Role role = 4;
+}
+
+message UtilisateurRequest {
+  Utilisateur utilisateur = 1;
+}
+
+message UtilisateurIdRequest {
+  int64 id = 1;
+}
+
+message UpdateUtilisateurRequest {
+  int64 id = 1;
+  Utilisateur utilisateur = 2;
+}
+
+message UtilisateurResponse {
+  Utilisateur utilisateur = 1;
+}
+
+message UtilisateurListResponse {
+  repeated Utilisateur utilisateurs = 1;
+}
+
+message EmptyRequest {}
+
+message EmptyResponse {}

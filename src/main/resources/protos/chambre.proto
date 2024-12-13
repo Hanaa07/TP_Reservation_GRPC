@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.hotel.tp_reservation_grpc.stubs";
+option java_outer_classname = "ChambreProto";
+
+service ChambreService {
+  rpc CreateChambre (ChambreRequest) returns (ChambreResponse);
+  rpc GetChambreById (ChambreIdRequest) returns (ChambreResponse);
+  rpc GetAllChambres (EmptyRequest) returns (ChambreListResponse);
+  rpc UpdateChambre (UpdateChambreRequest) returns (ChambreResponse);
+  rpc DeleteChambre (ChambreIdRequest) returns (EmptyResponse);
+}
+
+enum TypeChambre {
+    SIMPLE = 0;
+    DOUBLE = 1;
+}
+message Chambre {
+  int64 id = 1;
+  TypeChambre typeChambre = 2;
+  double prix = 3;
+  bool disponible = 4;
+}
+
+message ChambreRequest {
+  Chambre chambre = 1;
+}
+
+message ChambreIdRequest {
+  int64 id = 1;
+}
+
+message UpdateChambreRequest {
+  int64 id = 1;
+  Chambre chambre = 2;
+}
+
+message ChambreResponse {
+  Chambre chambre = 1;
+}
+
+message ChambreListResponse {
+  repeated Chambre chambres = 1;
+}
+
+message EmptyRequest {}
+
+message EmptyResponse {}
